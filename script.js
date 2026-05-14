@@ -1,6 +1,6 @@
 /* PKR Portfolio — Vanilla JS (no dependencies) */
 (function () {
-  var EMAIL = 'pavan@rasanipavankalyan.com';
+  var EMAIL = 'rasanikalyan@gmail.com';
 
   // Header scroll state
   var header = document.querySelector('.site-header');
