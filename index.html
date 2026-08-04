@@ -11,6 +11,17 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Private Google Analytics 4 (GA4) - Replace G-XXXXXXXXXX with your Measurement ID to view visitors & time spent privately -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  -->
 </head>
 <body>
 
@@ -19,16 +30,17 @@
   <div class="wrap header-inner">
     <a href="#top" class="brand" data-testid="brand-link">
       <span class="dot"></span>
-      <span class="brand-text">PKR // Signal Match</span>
+      <span class="brand-text">Pavan Kalyan Rasani</span>
     </a>
     <nav class="primary-nav" aria-label="Primary">
       <a href="#about">01 / Story</a>
       <a href="#capabilities">02 / Capabilities</a>
       <a href="#manufacturing">03 / Mfg Delivery</a>
       <a href="#fit">04 / Role Fit</a>
-      <a href="#work">05 / Work</a>
-      <a href="#arsenal">06 / Toolset</a>
-      <a href="#contact">07 / Contact</a>
+      <a href="#lidar">05 / LiDAR</a>
+      <a href="#work">06 / Work</a>
+      <a href="#arsenal">07 / Toolset</a>
+      <a href="#contact">08 / Contact</a>
     </nav>
     <div class="header-cta">
       <a href="assets/resume.pdf" target="_blank" rel="noopener" class="btn btn-primary" data-testid="header-resume-btn">↓ Resume</a>
@@ -41,9 +53,10 @@
     <a href="#capabilities">02 / Capabilities</a>
     <a href="#manufacturing">03 / Mfg Delivery</a>
     <a href="#fit">04 / Role Fit</a>
-    <a href="#work">05 / Work</a>
-    <a href="#arsenal">06 / Toolset</a>
-    <a href="#contact">07 / Contact</a>
+    <a href="#lidar">05 / LiDAR</a>
+    <a href="#work">06 / Work</a>
+    <a href="#arsenal">07 / Toolset</a>
+    <a href="#contact">08 / Contact</a>
     <a href="assets/resume.pdf" target="_blank" rel="noopener" class="btn btn-primary">↓ Resume</a>
   </div>
 </header>
@@ -62,7 +75,7 @@
 
     <div class="hero-row">
       <div class="hero-main">
-        <p class="label accent">[ Signal Match // PKR-007 ]</p>
+        <p class="label accent">[ Executive Portfolio // PKR ]</p>
         <h1 class="display">
           Driving Strategic Roadmaps: Turning Project Complexity into Business Movement<span class="caret">▍</span>
         </h1>
@@ -76,7 +89,7 @@
       </div>
 
       <aside class="signal-card" aria-label="Profile summary">
-        <p class="label accent">// signal profile</p>
+        <p class="label accent">// Executive Profile</p>
         <dl class="kv">
           <div><dt>Name</dt><dd>Pavan Kalyan Rasani</dd></div>
           <div><dt>Target Roles</dt><dd>PM · PgM · OpM</dd></div>
@@ -279,6 +292,93 @@
   </div>
 </section>
 
+<!-- ============ LIDAR EXPERIENCE ============ -->
+<section class="section bg-lidar" id="lidar" data-testid="lidar-section">
+  <div class="section-pattern" aria-hidden="true"></div>
+  <div class="section-veil" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="label accent">// section 05 · 3D Spatial Sensing</p>
+        <h2 class="display-2">LiDAR Experience</h2>
+      </div>
+      <p class="muted small mono section-head-aside">Interactive 3D point cloud simulation. Airborne, drone &amp; terrestrial laser scanning pipelines.</p>
+    </div>
+
+    <!-- LiDAR Interactive Module -->
+    <div class="lidar-module" data-testid="lidar-module">
+      <div class="lidar-viewport-wrap">
+        <canvas id="lidarCanvas" class="lidar-canvas" aria-label="Interactive 3D LiDAR Point Cloud Visualizer"></canvas>
+
+        <!-- Canvas Scan Overlay & Grid Lines -->
+        <div class="lidar-hud-top">
+          <div class="hud-tag"><span class="hud-pulse"></span> SCANNING ACTIVE // SENSOR: RIEGL VUX-1LR</div>
+          <div class="hud-coords mono">UTM 43N | RES: 1.2 cm | RMS: 0.008m</div>
+        </div>
+
+        <div class="lidar-hud-bottom">
+          <div class="hud-stat"><span class="hud-lbl">POINTS</span><span id="lidarPtsCount" class="hud-val">8,192</span></div>
+          <div class="hud-stat"><span class="hud-lbl">PULSE RATE</span><span class="hud-val">1.2M pts/sec</span></div>
+          <div class="hud-stat"><span class="hud-lbl">MODE</span><span id="lidarActiveMode" class="hud-val accent-text">ELEVATION</span></div>
+          <div class="hud-stat hide-sm"><span class="hud-lbl">ORBIT</span><span class="hud-val">DRAG / ROTATE</span></div>
+        </div>
+
+        <div class="lidar-laser-beam" id="lidarLaserBeam"></div>
+      </div>
+
+      <!-- Module Controls -->
+      <div class="lidar-controls">
+        <div class="control-group">
+          <span class="label muted">Color Shader:</span>
+          <div class="btn-group">
+            <button type="button" class="lidar-btn active" data-mode="elevation" data-testid="lidar-mode-elevation">Elevation</button>
+            <button type="button" class="lidar-btn" data-mode="intensity" data-testid="lidar-mode-intensity">Intensity</button>
+            <button type="button" class="lidar-btn" data-mode="classification" data-testid="lidar-mode-classification">Classification</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <span class="label muted">Scan Sweep:</span>
+          <button type="button" class="lidar-btn active" id="lidarScanToggle" data-testid="lidar-sweep-toggle">Sweep: ON</button>
+        </div>
+
+        <div class="control-group">
+          <span class="label muted">Point Density:</span>
+          <div class="btn-group">
+            <button type="button" class="lidar-btn" data-density="low">Low (4k)</button>
+            <button type="button" class="lidar-btn active" data-density="med">Med (8k)</button>
+            <button type="button" class="lidar-btn" data-density="high">High (12k)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LiDAR Capabilities Bento -->
+    <div class="bento-4 lidar-bento">
+      <article class="cell">
+        <span class="label accent">L-01</span>
+        <h3 class="cell-title">Airborne &amp; Drone LiDAR</h3>
+        <p class="cell-body">Flight plan execution, sensor calibration (boresight), and trajectory post-processing (PPK/RTK) for RIEGL &amp; DJI L1/L2 systems.</p>
+      </article>
+      <article class="cell">
+        <span class="label accent">L-02</span>
+        <h3 class="cell-title">3D Point Cloud Filtering</h3>
+        <p class="cell-body">Macro &amp; micro ground filtering, noise removal, building extraction, and bare-earth DTM generation from dense return clouds.</p>
+      </article>
+      <article class="cell">
+        <span class="label accent">L-03</span>
+        <h3 class="cell-title">Powerline &amp; Corridor Analytics</h3>
+        <p class="cell-body">Vegetation encroachment detection, conductor sag modeling, and tower structure classification along high-voltage transmission lines.</p>
+      </article>
+      <article class="cell">
+        <span class="label accent">L-04</span>
+        <h3 class="cell-title">ISO 19157 Accuracy Governance</h3>
+        <p class="cell-body">Vertical &amp; horizontal accuracy validation using GCP check points, ASPRS standards, and automated QA report generation.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ============ SELECTED WORK ============ -->
 <section class="section bg-roads" id="work" data-testid="work-section">
   <div class="section-pattern" aria-hidden="true"></div>
@@ -286,7 +386,7 @@
   <div class="wrap">
     <div class="section-head">
       <div>
-        <p class="label accent">// section 05</p>
+        <p class="label accent">// section 06</p>
         <h2 class="display-2">Selected Work</h2>
       </div>
       <p class="muted small mono section-head-aside">Programs I've contributed to. Industry, scope, and what I worked on.</p>
@@ -301,6 +401,7 @@
       <a class="mission" href="#contact"><span class="m-code">W-04</span><span class="m-client">HERE · Apple · Grab</span><span class="m-title">HD Mapping Delivery<small>Topology discipline and QA governance across APAC and North America corridors.</small></span><span class="m-industry">Autonomous · Traffic</span><span class="m-focus">70K+ km QA</span></a>
       <a class="mission" href="#contact"><span class="m-code">W-05</span><span class="m-client">ONGC · Coal India · CMPDI</span><span class="m-title">Mining &amp; Resource Programs<small>3D spatial visualisation and asset interpretation for decision support.</small></span><span class="m-industry">Mining</span><span class="m-focus">3D · Investor decks</span></a>
       <a class="mission" href="#contact"><span class="m-code">W-06</span><span class="m-client">Current Company — UAS</span><span class="m-title">Drone Manufacturing &amp; Services<small>Production, SOPs, QA, and enterprise survey/inspection services delivered with drones.</small></span><span class="m-industry">Aerospace · UAS</span><span class="m-focus">Mfg · Field Ops</span></a>
+      <a class="mission" href="#contact"><span class="m-code">W-07</span><span class="m-client">RIEGL · DJI L1/L2 · TLS</span><span class="m-title">Enterprise LiDAR &amp; 3D Point Cloud Analytics<small>High-density airborne &amp; terrestrial point cloud classification, DTM/DSM derivation, and corridor analytics.</small></span><span class="m-industry">Geospatial · Infra</span><span class="m-focus">3D Point Cloud · DTM</span></a>
     </div>
   </div>
 </section>
@@ -312,7 +413,7 @@
   <div class="wrap">
     <div class="section-head">
       <div>
-        <p class="label accent">// section 06</p>
+        <p class="label accent">// section 07</p>
         <h2 class="display-2">Toolset</h2>
       </div>
       <p class="muted small mono section-head-aside">Program craft, automation, domain depth, and stakeholder mechanics — the stack I work inside.</p>
@@ -335,7 +436,7 @@
   <div class="section-veil" aria-hidden="true"></div>
   <div class="wrap grid-12">
     <div class="col-span-5">
-      <p class="label accent">// section 07</p>
+      <p class="label accent">// section 08</p>
       <h2 class="display-2">Open a Conversation</h2>
       <p class="muted small mono">Pick the channel that works for you. Same-day response.</p>
 
@@ -408,7 +509,7 @@
 <!-- ============ FOOTER ============ -->
 <footer class="site-footer" data-testid="site-footer">
   <div class="wrap footer-row">
-    <div class="footer-brand"><span class="dot"></span><span class="label">PKR · Signal Match</span></div>
+    <div class="footer-brand"><span class="dot"></span><span class="label">PKR · Pavan Kalyan Rasani</span></div>
     <div class="label muted footer-center">Bangalore, IN · Open to Relocation</div>
     <div class="footer-links">
       <a href="https://www.linkedin.com/in/rasanipavankalyan/" target="_blank" rel="noopener">LinkedIn</a>
@@ -418,7 +519,7 @@
   </div>
   <div class="wrap footer-row footer-sub">
     <span>© <span id="year"></span> Pavan Kalyan Rasani</span>
-    <span>// end of signal</span>
+    <span>// Executive Delivery Record</span>
   </div>
 </footer>
 
